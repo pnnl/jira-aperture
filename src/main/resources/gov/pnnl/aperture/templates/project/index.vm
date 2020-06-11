@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title>PNNL Aperture for $action.projectKey</title>
+        $webResourceManager.requireResourcesForContext("com.atlassian.auiplugin:aui-select2")
+        $webResourceManager.requireResourcesForContext("gov.pnnl.aperture.jira-core:pnnl-aperture-resources")
+        <meta name="decorator" content="atl.admin" />    
+        <meta name="admin.active.section" content="atl.jira.proj.config">
+        <meta name="admin.active.tab" content="pnnl_dc_aperture_prj_config"/>
+        <meta name="projectKey" content="$textutils.htmlEncode($action.projectKey)"/>
+    </head>
+    <body>
+       <div id="page">
+        <section id="content" role="main">
+            <header class="aui-page-header">
+                <div class="aui-page-header-inner">
+                    <div class="aui-page-header-image">
+                        <div class="apr-logo"></div>
+                    </div>
+                    <div class="aui-page-header-main">
+                        <h2>Aperture for $action.projectKey</h2>
+                    </div>
+                    <div class="aui-page-header-actions">
+                        <p>Developed by <a href="http://developercentral.pnnl.gov/">Developer Central @ PNNL</a></p>
+                    </div>
+                </div>
+            </header>
+            #if (${action.isApertureEnabled()})
+                <div class="aui-page-panel">
+                    <div class="aui-page-panel-inner">
+                        <section class="aui-page-panel-content">
+                            <div class="project-config-webpanel-column-wrap">
+                                <div class="project-config-webpanel-column">
+                                    #if (${action.isScheduledForRemoval()})
+                                        #parse("/gov/pnnl/aperture/templates/project/undelete.vm")
+                                    #else
+                                        #parse("/gov/pnnl/aperture/templates/project/dev-access-control.vm")
+                                        #parse("/gov/pnnl/aperture/templates/project/admin-access-control.vm")
+                                        #parse("/gov/pnnl/aperture/templates/project/remove.vm")
+                                    #end
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            #else
+                <div class="aui-page-panel">
+                    <div class="aui-page-panel-inner">
+                        <section class="aui-page-panel-content">
+                            <div class="aui-message">
+                                <p class="title">
+                                    <strong>Aperture is not currently enabled on this project.</strong>
+                                </p>
+                                <p>
+                                    Aperture features and functions are not currently enabled for this project. This 
+                                    typically means that this project was not originally created using the Aperture 
+                                    tool; $action.getAdministratorContactLink() to get Aperture enabled 
+                                    for this project or if this message is believed to be in error.
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            #end
+            #if ($action.isSystemAdmin())
+                <header class="aui-page-header">
+                    <div class="aui-page-header-inner">
+                        <div class="aui-page-header-main">
+                            <h2>Aperture System Administration for $projectKey</h2>
+                        </div>     
+                    </div>
+                </header>
+                #parse("/gov/pnnl/aperture/templates/project/sysadmin.vm.html")
+            #end
+            <footer id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <ul>
+                        <li><div class="apr-logo"></div></li>
+                        <li>
+                            Developed by <a href="http://developercentral.pnnl.gov/">Developer Central @ PNNL</a>
+                        </li>
+                    </ul>      
+                </section>
+            </footer>
+        </section>
+        <script type="text/javascript">
+         function openUserPickerWindow(element, multiselect){
+            var vWinUsers = window.open('$!requestContext.canonicalBaseUrl/secure/popups/UserPickerBrowser.jspa?formName=jiraform&multiSelect=' + multiselect + '&element=' + element, 'UserPicker', 'status=yes,resizable=yes,top=100,left=200,width=580,height=750,scrollbars=yes');
+            vWinUsers.opener = self;
+            vWinUsers.focus();    
+         }
+         function openGroupPickerWindow(element){
+            var vWinUsers = window.open('$!requestContext.canonicalBaseUrl/secure/popups/GroupPickerBrowser.jspa?formName=jiraform&multiSelect=true&element=' + element, 'UserPicker', 'status=yes,resizable=yes,top=100,left=200,width=580,height=750,scrollbars=yes');
+            vWinUsers.opener = self;
+            vWinUsers.focus();    
+         }
+    </script>
+     </div>
+    </body>
+</html>

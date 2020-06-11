@@ -1,0 +1,89 @@
+$webResourceManager.requireResourcesForContext("com.atlassian.auiplugin:aui-select2")
+$webResourceManager.requireResourcesForContext("gov.pnnl.aperture.jira-core:pnnl-aperture-resources")
+<meta name="admin.active.tab" content="tabs-applinks"/>
+<header class="aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-image">
+            <div class="apr-logo"></div>
+        </div>
+        <div class="aui-page-header-actions">
+            <p>Developed by <a href="http://developercentral.pnnl.gov/">Developer Central @ PNNL</a></p>
+        </div>
+    </div>
+</header>
+<p>
+</p>
+<div id="aperture-cfg" class="aui-tabs horizontal-tabs" role="application" data-aui-persist="aperture"
+     data-aui-responsive>
+    <div class="module">
+        <div class="mod-header" id="filter-projects">
+            <div>
+                <div class="aui-page-header-main">
+                    <h2>Aperture Project Recycle Bin</h2>
+                </div>
+                <div class="description">All projects that are pending removal via Aperture are listed here.</div>
+            </div>
+        </div>
+        <div class="mod-content" id="projects">
+            <div class="p-list">
+                <table class="aui">
+                    <thead>
+                    <tr>
+                        <th class="project-list-name">Project</th>
+                        <th class="project-list-key">Key</th>
+                        <th class="project-list-lead">Project lead</th>
+
+                        <th class="project-list-initiated-by">Initiated By</th>
+                        <th class="project-list-initiated-on">Initiated On</th>
+                        <th class="project-list-purge">Purge Datetime</th>
+                        <th class="project-list-form">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody class="projects-list">
+                        #foreach ($project in $action.projects)
+                            #set($projectType = $action.getProjectType($project))
+                            #set($details = $action.getJobDetailsFor($project.key))
+                            #set($initiatedBy = $action.getInitiatedBy($details))
+                            #set($initiatedOn = $action.getInitiatedOn($details))
+                            <tr data-project-id="$project.id">
+                                <td data-cell-type="name" class="cell-type-name">
+                                    <a href="/jira/browse/$project.key" atltoken="false" data-track-click="projects.browse.project" original-title="$project.name">
+                                        <span class="aui-avatar aui-avatar-small aui-avatar-project jira-system-avatar">
+                                            <span class="aui-avatar-inner">
+                                                <img src="/jira/secure/projectavatar?size=small&amp;pid=$project.id">
+                                            </span>
+                                        </span>
+                                        $project.name
+                                    </a>
+                                </td>
+                                <td class="cell-type-key">$project.key</td>
+                                <td class="cell-type-user">
+                                    <a class="user-hover" rel="admin" id="_$project.projectLead.name" href="/jira/secure/ViewProfile.jspa?name=$project.projectLead.name">$project.projectLead.displayName</a>
+                                </td>
+
+                                <td class="cell-type-user">
+                                    <a class="user-hover" rel="admin" id="_${initiatedBy.name}" href="/jira/secure/ViewProfile.jspa?name=${initiatedBy.name}">${initiatedBy.displayName}</a>
+                                </td>
+                                <td class="cell-type-project-type">${outlookdate.format($initiatedOn)}</td>
+                                <td class="cell-type-url">${outlookdate.format($details.getNextRunTime())}</td>
+                                <td>
+                                    <form id="cancel_${project.key}" class="aui" method="post" action="${req.contextPath}/secure/admin/ApertureProjectRecycleBin!cancel.jspa">
+                                        <input type="hidden" name="projectKey" value="${project.key}" />
+                                        <div class="buttons-container">
+                                            <input class="aui-button aui-button-cancel" type="submit" value="Cancel" />
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        #end
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h5 style="text-align:right;">Running Aperture v.${action.getPluginInfo().getVersion()}</h5>
+    <script type="text/javascript">jQuery(function () {
+        AJS.tabs.setup();
+    });</script>
+</div>

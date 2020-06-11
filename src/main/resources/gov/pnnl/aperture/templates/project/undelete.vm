@@ -1,0 +1,29 @@
+<div class="project-config-webpanel-column-content">
+    <div class="module project-config-webpanel">
+        <div class="mod-header">
+            <h2>Cancel Project Removal</h2>
+        </div>
+        <div class="mod-content">
+            <div class="project-config-webpanel-content project-config-icon48-undelete">
+                <form id="undelete" class="aui" method="post" action="${req.contextPath}/secure/admin/ProjectConfigureAperture!undelete.jspa">
+                    <input type="hidden" value="$action.projectKey" name="projectKey" />
+                    <dl class="details">
+                        <dt>Scheduled for Deletion in</dt>
+                        <dd>~&nbsp;$action.getRemovalDuration()</dd>
+                        <dt>Deletion Date</dt>
+                        <dd>$action.getRemovalDate()</dd>                       
+                    </dl>
+                    <div class="buttons-container">
+                        <div class="buttons">
+                            <input class="button submit aui-button aui-button-danger" type="submit" value="Undelete Project" />
+                        </div>
+                    </div>
+                </form>
+                <div class="project-config-webpanel-help">
+                    <p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

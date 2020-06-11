@@ -1,0 +1,51 @@
+<div class="aui-message">
+    <p class="title">
+        <strong>Toggle Aperture Features for this project.</strong>
+    </p>
+    <p>
+        Aperture features for this project can only be disabled/enabled by JIRA System
+        Administrators. This should only be done for projects that are legacy projects
+        that were not created with Aperture or were incorrectly disabled.
+    </p>
+</div>
+<form style="margin: 0 auto;" class="aui" method="post" action="${req.contextPath}/secure/admin/ProjectConfigureAperture!toggle.jspa">
+    <input type="hidden" value="$projectKey" name="projectKey" />
+    <fieldset class="group">
+        <legend>
+            <span>Confirm Aperture Status Change</span>
+        </legend>
+        <div class="checkbox">           
+            <input type="checkbox" name="toggle_confirmed" class="checkbox" id="toggle_confirmed" required="required" />
+            <label for="toggle_confirmed">Confirm Aperture Status Toggle<span class="aui-icon icon-required">(required)</span></label>
+        </div>
+        <div class="description">
+            This will toggle the current status of <b>${apertureSettings.getProjectSettings($projectKey).enabled}</b>
+        </div>
+    </fieldset>
+    <div class="buttons-container">
+        <div class="buttons">
+            <input class="button submit aui-button aui-button-danger" type="submit" value="Toggle Aperture" />
+        </div>
+    </div>
+</form>
+<form style="margin: 0 auto;" class="aui" method="post" action="${req.contextPath}/secure/admin/ProjectConfigureAperture!install.jspa">
+    <input type="hidden" value="$projectKey" name="projectKey" />
+    <fieldset class="group">
+        <legend>
+            <span>Install Aperture on this Project</span>
+        </legend>
+        <div class="checkbox">
+            <input type="checkbox" name="toggle_confirmed" class="checkbox" id="toggle_installed" required="required" />
+            <label for="toggle_installed">Confirm Aperture Installation<span class="aui-icon icon-required">(required)</span></label>
+        </div>
+        <div class="description">
+            By clicking the install button; this will modify this project and potentially and existing issues currently
+            associated. This is best to do on an empty/new JIRA project.
+        </div>
+    </fieldset>
+    <div class="buttons-container">
+        <div class="buttons">
+            <input class="button submit aui-button aui-button-danger" type="submit" value="Install Aperture" />
+        </div>
+    </div>
+</form>

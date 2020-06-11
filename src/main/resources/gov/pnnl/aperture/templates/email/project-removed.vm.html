@@ -1,0 +1,58 @@
+#disable_html_escaping()
+#parse("templates/email/html/includes/emailconstants.vm")
+#rowWrapperNormalBegin('' 'wrapper-special-margin')
+<table class="keyvalue-table">
+    <tr>
+        <th>Removal Initiated By:</th>
+        <td style="text-align: left;">
+            #authorlinkkey($actionUser.getName() $linkstyle)
+        </td>
+    </tr>
+    #if ($initiatedOn)
+    <tr>
+        <th>Removal Initiated On:</th>
+        <td style="text-align: left;">
+            $dateformatter.formatDMYHMS($initiatedOn)
+        </td>
+    </tr>
+    #end
+    <tr>
+        <td colspan="2" class="text-paragraph-pattern-container mobile-resize-text">
+            This message is to confirm that the project with key <b>$projectKey</b> and all associated services provided
+            by Developer Central have been removed. If this project was removed in error it can only be restored from a 
+            back-up; please refer to 
+            <a href="https://confluence.pnnl.gov/confluence/x/cJOYAQ">Developer Central's Backup Policy</a> for more 
+            information on restoration procedures. 
+        </td>
+    </tr>
+    <tr>
+        <td class="page-title-pattern-first-line" colspan="2">
+            <b>Developer Central Links</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <ul>
+                <li>
+                    For a tutorial on how to use JIRA on your project, please see 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/JIRA+Tutorial">https://confluence.pnnl.gov/confluence/display/DC/JIRA+Tutorial</a>
+                </li>
+                <li>
+                    For answers to frequently asked JIRA questions, please read 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/Jira+FAQ">https://confluence.pnnl.gov/confluence/display/DC/Jira+FAQ</a>
+                </li>
+                <li>
+                    For answers to frequently asked Confluence questions, please read 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/Confluence+FAQ">https://confluence.pnnl.gov/confluence/display/DC/Confluence+FAQ</a>
+                </li>
+                <li>
+                    For answers to frequently asked git and Bitbucket Server questions, please read 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/Git+FAQ">https://confluence.pnnl.gov/confluence/display/DC/Git+FAQ</a>
+                </li>
+            </ul>
+            For other questions or concerns, please email <a href="mailto:dev-central@pnnl.gov">Developer Central @ PNNL</a>.
+        </td>
+    </tr>
+</table>
+#rowWrapperNormalEnd()
+#parse("templates/email/html/includes/footer.vm")

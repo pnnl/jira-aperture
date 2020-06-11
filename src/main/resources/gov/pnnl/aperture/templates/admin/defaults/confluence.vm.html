@@ -1,0 +1,40 @@
+#set($defaults = $action.getDefaults('confluence', ''))
+<form id="conf_defaults" class="aui" method="post" action="${req.contextPath}/secure/admin/ConfigureApertureDefaults!confluence.jspa">
+    <div class="aui-page-panel" style="border-top-width: 0; margin-top: 0px;">
+        <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                <h2>Confluence XML-RPC Configuration</h2>
+                <p>
+                    Configure settings for that allows Aperture to work with Confluence. 
+                </p>
+                <div class="field-group">
+                    <label for="username">Confluence Username</label>
+                    <input class="text medium-field" type="text" name="username" placeholder="Confluence User" 
+                           #if ($defaults.get('username'))
+                                value="$defaults.get('username')" 
+                           #end 
+                           />
+                    <div class="description">
+                        Enter the Confluence user name that can create and modify spaces through the XML-RPC API.
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="username">Confluence Password</label>
+                    <input class="text medium-field" type="password" name="password" placeholder="Confluence Password" />
+                    <div class="description">
+                        Enter the password for the Confluence user who will create and modify spaces using the XML-RPC API.
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" type="submit" value="Update Confluence Config" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">jQuery(function () {
+        AJS.$('#jira_defaults select').auiSelect2({placeholder: "Select a JIRA Project component."});
+    });
+</script>

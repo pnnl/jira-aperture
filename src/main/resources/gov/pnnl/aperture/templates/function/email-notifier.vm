@@ -1,0 +1,1 @@
+Sends an email notification for new project services to the issue <b>Reporter</b> and project team via custom fields <b>#if (${users}) $users.name #else Unassigned User Field #end </b> and <b>#if (${groups}) $groups.name #else Unassigned Group Field #end</b>.

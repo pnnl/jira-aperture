@@ -1,0 +1,113 @@
+<form id="wf" class="aui" method="post" action="${req.contextPath}/secure/admin/ConfigureAperture!workflow.jspa">
+    <div class="aui-page-panel" style="border-top-width: 0; margin-top: 0px;">
+        <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                <h2>Map JIRA Workflow Actions into Aperture</h2>
+                <div class="field-group">
+                    <label for="apr_wf">Aperture Workflow</label>
+                    <select class="s2" name="apr_wf" onchange="this.form.submit();">       
+                        <option></option>
+                        #set($selected = $action.getWorkflow())
+                        #foreach ($wf in $action.getWorkflows())
+                            <option value="$wf.getName()"
+                                #if (${selected})
+                                    #if ($selected.getName() == $wf.getName())
+                                        selected
+                                    #end
+                                #end
+                            >$wf.getDisplayName()</option>                                
+                        #end
+                    </select>
+                    <div class="description">
+                        This is the workflow that Aperture will be using when automating processes initiated through
+                        JIRA issues.
+                    </div>
+                </div>
+                #if (${selected})
+                    <div class="field-group">
+                        <label for="start_action">Start Workflow Action<span class="aui-icon icon-required">(required)</span></label>
+                        <select class="s2" name="start_action" required="required">       
+                            <option></option>
+                            #set($workflow_action = $action.getAction('start_action'))
+                            #foreach ($wf_action in $action.getWorkflowActions())
+                                <option value="$wf_action.getId()" 
+                                    #if (${workflow_action})
+                                        #if ($workflow_action.getId() == $wf_action.getId())
+                                            selected
+                                        #end
+                                    #end
+                               >$wf_action.getName() ($wf_action.getId())</option>
+                            #end
+                        </select>
+                        <div class="description">
+                            This is the workflow action that is initiated when Aperture begins an automated process 
+                            initiated from a JIRA issue.
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="triage_action">Human Triage Action<span class="aui-icon icon-required">(required)</span></label>
+                        <select class="s2" name="triage_action" required="required">       
+                            <option></option>
+                            #set($workflow_action = $action.getAction('triage_action'))
+                            #foreach ($wf_action in $action.getWorkflowActions())
+                                <option value="$wf_action.getId()" 
+                                    #if (${workflow_action})
+                                        #if ($workflow_action.getId() == $wf_action.getId())
+                                            selected
+                                        #end
+                                    #end
+                               >$wf_action.getName() ($wf_action.getId())</option>
+                            #end
+                        </select>
+                        <div class="description">
+                            This is the workflow action that is initiated when Aperture has failed with an automated 
+                            process or the automated process is complete and needs manual/<em>human</em> assistance
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="done_action">Work Complete Action<span class="aui-icon icon-required">(required)</span></label>
+                        <select class="s2" name="done_action" required="required">       
+                            <option></option>
+                            #set($workflow_action = $action.getAction('done_action'))
+                            #foreach ($wf_action in $action.getWorkflowActions())
+                                <option value="$wf_action.getId()" 
+                                    #if (${workflow_action})
+                                        #if ($workflow_action.getId() == $wf_action.getId())
+                                            selected
+                                        #end
+                                    #end
+                               >$wf_action.getName() ($wf_action.getId())</option>
+                            #end
+                        </select>
+                        <select class="s2" name="done_status" required="required" style="margin-left:0.25em;">       
+                            <option></option>
+                            #foreach ($wf_status in $action.getResolutions())
+                                #set($current_status = $action.finishResolution)
+                                <option value="$wf_status.id" 
+                                    #if (${current_status})
+                                        #if ($wf_status.id == $current_status.id)
+                                            selected
+                                        #end
+                                    #end
+                               >$wf_status.nameTranslation ($wf_status.id)</option>
+                            #end
+                        </select>
+                        <div class="description">
+                            This is the workflow action that is initiated when Aperture has fully completed an automated 
+                            process that has been initiated from a JIRA issue.
+                        </div>
+                    </div>
+                    <div class="buttons-container">
+                        <div class="buttons">
+                            <input class="button submit" type="submit" value="Update Workflow Mappings" />
+                        </div>
+                    </div>
+                #end
+            </section>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">jQuery(function(){
+    AJS.$('#wf select').auiSelect2({ placeholder: "Select a JIRA workflow component."});
+});
+</script>

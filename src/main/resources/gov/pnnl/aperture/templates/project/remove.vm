@@ -1,0 +1,46 @@
+<div class="project-config-webpanel-column-content">
+    <div class="module project-config-webpanel">
+        <div class="mod-header">
+            <h2>Remove Project</h2>
+        </div>
+        <div class="mod-content">
+            <div class="project-config-webpanel-content project-config-icon48-remove">
+                <form id="remove" class="aui" method="post" action="${req.contextPath}/secure/admin/ProjectConfigureAperture!remove.jspa">
+                    <input type="hidden" value="$action.projectKey" name="projectKey" />
+                    
+                    <div class="field-group">
+                        <div class="checkbox">
+                            <span class="aui-icon icon-required">required</span>
+                            <input class="checkbox" type="checkbox" required="required" name="confirmed" id="confirmed" />
+                            <label for="confirmed">Confirm Removal</label>
+                        </div>
+                        <div class="aui-message aui-message-error">
+                            <p class="title">
+                                <strong>Warning &mdash; This is a destructive operation!</strong>
+                            </p>
+                            <p>
+                                Once a project is deleted; it can only be restored from a back-up; please refer to 
+                                <a href="https://confluence.pnnl.gov/confluence/x/cJOYAQ">Developer Central's Backup Policy</a>
+                                for more information.
+                            </p>
+                        </div>
+                    </div> 
+                    <div class="buttons-container">
+                        <div class="buttons">
+                            <button class="aui-button aui-button-danger" type="submit">
+                                <span class="aui-icon aui-icon-small aui-iconfont-delete">Delete Project Icon</span> Schedule Project Removal
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div class="project-config-webpanel-help">
+                    <p>
+                        Once a project is scheduled for removal there will be a delay of  
+                        <b style="font-size:larger">$dateutils.formatDurationPretty($dateutils.getDuration($action.apertureSettings.deleteDuration))</b> 
+                        to rescind and cancel this request otherwise this project and associated services to be removed.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

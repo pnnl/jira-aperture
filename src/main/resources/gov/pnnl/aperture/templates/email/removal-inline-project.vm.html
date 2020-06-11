@@ -1,0 +1,19 @@
+#disable_html_escaping()
+#parse("templates/email/html/includes/emailconstants.vm")
+#defaultMailHeader("pnnl.aperture.project-services.removed-user", $actionUser)
+#set ($issueTitleBody="#parse('templates/email/html/includes/patterns/issue-title.vm')")
+#rowWrapperNormal($issueTitleBody)
+#rowWrapperNormalBegin('' 'wrapper-special-margin')
+<table class="keyvalue-table">
+    <tr>
+        <td colspan="2" class="text-paragraph-pattern-container mobile-resize-text">
+            This message is to confirm that access to the project with key <b>$projectKey</b> and all associated 
+            services provided by Developer Central has been revoked by <b>$actionUser.displayName</b>. If this action 
+            was done in error; we encourage you to contact #authorlinkkey($projectLead $linkstyle) and to have access 
+            reinstated. If this problem persists or the project lead is unavailable please contact us 
+            <a href="mailto:dev-central@pnnl.gov">@Developer Central</a> for further assistance.
+        </td>
+    </tr>
+    #rowWrapperNormalEnd()
+</table>
+#parse("templates/email/html/includes/footer.vm")

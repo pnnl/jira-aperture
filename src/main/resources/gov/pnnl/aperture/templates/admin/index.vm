@@ -1,0 +1,66 @@
+$webResourceManager.requireResourcesForContext("com.atlassian.auiplugin:aui-select2")
+$webResourceManager.requireResourcesForContext("gov.pnnl.aperture.jira-core:pnnl-aperture-resources")
+<meta name="admin.active.tab" content="tabs-applinks"/>
+<header class="aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-image">
+            <div class="apr-logo"></div>
+        </div>
+        <div class="aui-page-header-main">
+            <h2>Aperture configuration</h2>
+        </div>
+        <div class="aui-page-header-actions">
+            <p>Developed by <a href="http://developercentral.pnnl.gov/">Developer Central @ PNNL</a></p>
+        </div>
+    </div>
+</header>
+<p>
+ In order for this add-on to function correctly it must first be configured to use the existing JIRA custom fields, 
+ workflow actions, and application links. 
+</p>
+<div id="aperture-cfg" class="aui-tabs horizontal-tabs" role="application" data-aui-persist="aperture" data-aui-responsive>
+    <ul class="tabs-menu" role="tablist">
+        <li class="menu-item active-tab" role="presentation">
+            <a href="#tabs-g" role="tab" aria-selected="true">
+                <strong>General</strong>
+            </a>
+        </li>
+        <li class="menu-item" role="presentation">
+            <a href="#tabs-cf" role="tab" aria-selected="true">
+                <strong>Custom Fields</strong>
+            </a>
+        </li>
+        <li class="menu-item" role="presentation">
+            <a href="#tabs-applinks" role="tab" aria-selected="false">
+                <strong>Application Links</strong>
+            </a>
+        </li>
+        <li class="menu-item" role="presentation">
+            <a href="#tabs-wf" role="tab" aria-selected="false">
+                <strong>Workflow Mapping</strong>
+            </a>
+        </li>
+        <li class="menu-item" role="presentation">
+            <a href="#tabs-ipt" role="tab" aria-selected="false">
+                <strong>Idle Project Detection</strong>
+            </a>
+        </li>
+    </ul>
+    <div class="tabs-pane active-pane" id="tabs-g" role="tabpanel" aria-hidden="false">
+        #parse("/gov/pnnl/aperture/templates/admin/general.vm")
+    </div>
+    <div class="tabs-pane" id="tabs-cf" role="tabpanel" aria-hidden="false">
+        #parse("/gov/pnnl/aperture/templates/admin/custom-fields.vm")
+    </div>
+    <div class="tabs-pane" id="tabs-applinks" role="tabpanel" aria-hidden="true">
+       #parse("/gov/pnnl/aperture/templates/admin/applinks.vm")
+    </div>
+    <div class="tabs-pane" id="tabs-wf" role="tabpanel" aria-hidden="true" >
+       #parse("/gov/pnnl/aperture/templates/admin/workflow-mapping.vm")
+    </div>
+    <div class="tabs-pane" id="tabs-ipt" role="tabpanel" aria-hidden="true" >
+        #parse("/gov/pnnl/aperture/templates/admin/idle-project-tool.vm")
+    </div>
+    <h5 style="text-align:right;">Running Aperture v.${action.getPluginInfo().getVersion()}</h5>
+    <script type="text/javascript">jQuery(function(){AJS.tabs.setup();});</script>
+</div>

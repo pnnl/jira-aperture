@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@4.9">
+    <actions/>
+    <description>$projectDescription</description>
+    <displayName>$projectName</displayName>
+    <properties>
+        <com.cloudbees.hudson.plugins.folder.properties.FolderProxyGroupContainer plugin="nectar-rbac@4.16">
+            <groups>
+                <nectar.plugins.rbac.groups.Group>
+                    <name>Local Admin</name>          
+                    <role>admin</role>
+                    <member>$projectLead.getName()</member>
+                    #foreach ($projectAdmin in $projectAdmins)
+                    <member>$projectAdmin.getName()</member>
+                    #end
+                </nectar.plugins.rbac.groups.Group>
+                <nectar.plugins.rbac.groups.Group>
+                    <name>Builders</name>
+                    <role>builder</role>
+                </nectar.plugins.rbac.groups.Group>
+                <nectar.plugins.rbac.groups.Group>
+                    <name>Readers</name>
+                    <role>reader</role>
+                </nectar.plugins.rbac.groups.Group>
+                <nectar.plugins.rbac.groups.Group>
+                    <name>Developers</name>
+                    <role>developer</role>
+                    #foreach ($projectMember in $projectMembers)
+                    <member>$projectMember.getName()</member>
+                    #end
+                </nectar.plugins.rbac.groups.Group>
+            </groups>
+        </com.cloudbees.hudson.plugins.folder.properties.FolderProxyGroupContainer>
+        <com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
+            <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+                <entry>
+                    <com.cloudbees.plugins.credentials.domains.Domain plugin="credentials@1.22">
+                        <specifications/>
+                    </com.cloudbees.plugins.credentials.domains.Domain>
+                    <java.util.concurrent.CopyOnWriteArrayList/>
+                </entry>
+            </domainCredentialsMap>
+        </com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
+        <com.cloudbees.hudson.plugins.folder.properties.EnvVarsFolderProperty plugin="cloudbees-folders-plus@2.12">
+            <properties></properties>
+        </com.cloudbees.hudson.plugins.folder.properties.EnvVarsFolderProperty>
+        <com.cloudbees.hudson.plugins.folder.properties.SubItemFilterProperty plugin="cloudbees-folders-plus@2.12"/>
+        <com.cloudbees.jenkins.plugins.foldersplus.SecurityGrantsFolderProperty plugin="cloudbees-folders-plus@2.12">
+            <securityGrants/>
+        </com.cloudbees.jenkins.plugins.foldersplus.SecurityGrantsFolderProperty>
+    </properties>
+    <icon class="com.cloudbees.hudson.plugins.folder.icons.StockFolderIcon"/>
+    <views>
+        <hudson.model.ListView>
+            <owner class="com.cloudbees.hudson.plugins.folder.Folder" reference="../../.."/>
+            <name>All</name>
+            <filterExecutors>false</filterExecutors>
+            <filterQueue>false</filterQueue>
+            <properties class="hudson.model.View$PropertyList"/>
+            <jobNames>
+                <comparator class="hudson.util.CaseInsensitiveComparator"/>
+            </jobNames>
+            <jobFilters/>
+            <columns>
+                <hudson.views.StatusColumn/>
+                <hudson.views.WeatherColumn/>
+                <hudson.views.JobColumn/>
+                <hudson.views.LastSuccessColumn/>
+                <hudson.views.LastFailureColumn/>
+                <hudson.views.LastDurationColumn/>
+                <hudson.views.BuildButtonColumn/>
+            </columns>
+            <includeRegex>.*</includeRegex>
+            <recurse>false</recurse>
+        </hudson.model.ListView>
+    </views>
+    <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+    <primaryView>All</primaryView>
+    <healthMetrics>
+        <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric/>
+        <com.cloudbees.hudson.plugins.folder.health.AverageChildHealthMetric plugin="cloudbees-folders-plus@2.12"/>
+        <com.cloudbees.hudson.plugins.folder.health.JobStatusHealthMetric plugin="cloudbees-folders-plus@2.12">
+            <success>true</success>
+            <failure>true</failure>
+            <unstable>true</unstable>
+            <unbuilt>true</unbuilt>
+            <countVirginJobs>false</countVirginJobs>
+        </com.cloudbees.hudson.plugins.folder.health.JobStatusHealthMetric>
+        <com.cloudbees.hudson.plugins.folder.health.ProjectEnabledHealthMetric plugin="cloudbees-folders-plus@2.12"/>
+    </healthMetrics>
+</com.cloudbees.hudson.plugins.folder.Folder>

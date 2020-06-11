@@ -1,0 +1,1 @@
+Custom field <b>#if (${cf}) $cf.getName() #else Unassigned #end </b> must be a valid and available JIRA project key or Confluence space key.

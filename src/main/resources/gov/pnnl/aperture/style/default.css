@@ -1,0 +1,76 @@
+.apr-logo {
+    background: url(../../resources/gov.pnnl.aperture.jira-core:pnnl-aperture-resources/images/pnnl-aperture.png) no-repeat;
+    height: 32px;
+    width: 32px;
+}
+
+.project-config-webpanel-content .details dt,
+.project-config-webpanel-content .details dd {
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+.project-config-webpanel-content .details dt {
+  width: 40%;
+  clear: both;
+  color: #707070;
+}
+.project-config-webpanel-content .details dt:after {
+  content: ':';
+}
+.project-config-webpanel-content .details dd {
+  width: 60%;
+}
+
+.project-config-webpanel .project-config-icon48-remove {
+  background-image: none;
+}
+
+.project-config-webpanel .project-config-icon48-remove:after {
+  content: "";
+  height: 48px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 48px;
+  background: transparent none no-repeat 0 0;
+}
+
+.project-config-webpanel .project-config-icon48-remove:after {
+  background-image: url(../../resources/gov.pnnl.aperture.jira-core:pnnl-aperture-resources/images/icon48-remove.png);
+}
+
+.project-config-icon48-undelete {
+  background: transparent url(../../resources/gov.pnnl.aperture.jira-core:pnnl-aperture-resources/images/icon48-remove.png) no-repeat 0 0;
+}
+
+.project-config-webpanel .project-config-icon48-undelete {
+  background-image: none;
+}
+
+.project-config-webpanel .project-config-icon48-undelete:after {
+  content: "";
+  height: 48px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 48px;
+  background: transparent none no-repeat 0 0;
+}
+
+.project-config-webpanel .project-config-icon48-undelete:after {
+  background-image: url(../../resources/gov.pnnl.aperture.jira-core:pnnl-aperture-resources/images/icon48-undelete.png);
+}
+
+.project-config-icon48-undelete {
+  background: transparent url(../../resources/gov.pnnl.aperture.jira-core:pnnl-aperture-resources/images/icon48-undelete.png) no-repeat 0 0;
+}
+
+
+section.footer-body .apr-logo {
+    position: relative;
+    left: 18px;
+    float: left;
+    top: -0.5em;
+}

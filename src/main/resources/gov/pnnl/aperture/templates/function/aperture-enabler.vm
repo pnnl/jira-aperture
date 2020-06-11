@@ -1,0 +1,1 @@
+Use the custom field <b>#if (${cf}) $cf.name #else Unassigned Project Key Custom Field #end </b> to enable Aperture capabilities within JIRA for project.

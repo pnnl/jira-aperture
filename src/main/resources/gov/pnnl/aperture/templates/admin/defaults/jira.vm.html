@@ -1,0 +1,127 @@
+#macro(jiraProjectDefaults $type)
+<form id="jira_${type.key.key}_defaults" class="aui" method="post" action="${req.contextPath}/secure/admin/ConfigureApertureDefaults!jira.jspa">
+    #set($defaults = $action.getDefaults('jira', $type.key.key))
+    <input type="hidden" name="project_type_key" value="$type.key.key" />
+    <div class="aui-page-panel" style="border-top-width: 0; margin-top: 0px;">
+        <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                <h2 style="text-transform: capitalize;">
+                    <img src="data:image/svg+xml;base64,$type.icon" style="color: $pt.color;vertical-align:text-bottom;" width="24px" height="24px" align="text-bottom"/>
+                    &nbsp;JIRA ${type.key.key} Project Defaults
+                </h2>
+                <div class="description">${i18n.getText($pt.descriptionI18nKey)}</div>
+                <p>
+                    Configure the various default project settings for projects of this type that are created via
+                    Aperture.
+                </p>
+                <div class="field-group">
+                    <label for="issue_scheme">Issue Type Scheme</label>
+                    <select class="s2" id="issue_scheme" name="issue_scheme" required="required">
+                        <option></option>
+                        #set($default = $defaults.get('issue_scheme'))
+                        #foreach ($scheme in $action.getIssueTypeSchemes())
+                            <option value="$scheme.getId()" 
+                                #if (${default})
+                                    #if ($default == $scheme.getId())
+                                        selected
+                                    #end
+                                #end
+                            >$scheme.getName()</option>
+                        #end
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="screen_scheme">Screen Scheme</label>
+                    <select class="s2" id="screen_scheme" name="screen_scheme" required="required">
+                        <option></option>
+                        #set($default = $defaults.get('screen_scheme'))
+                        #foreach ($scheme in $action.getScreenSchemes())
+                            <option value="$scheme.getId()" 
+                                #if (${default})
+                                    #if ($default == $scheme.getId())
+                                        selected
+                                    #end
+                                #end
+                            >$scheme.getName()</option>
+                        #end
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="field_scheme">Field Configuration Scheme</label>
+                    <select class="s2" id="field_scheme" name="field_scheme" required="required">
+                        <option></option>
+                        <option value="">System Default Field Configuration</option>
+                        #set($default = $defaults.get('field_scheme'))
+                        #foreach ($scheme in $action.getFieldConfigurationSchemes())
+                            <option value="$scheme.getId()" 
+                                #if (${default})
+                                    #if ($default == $scheme.getId())
+                                        selected
+                                    #end
+                                #end
+                            >$scheme.getName()</option>
+                        #end
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="workflow_scheme">Workflow Scheme</label>
+                    <select class="s2" id="workflow_scheme" name="workflow_scheme" required="required">
+                        <option></option>
+                        #set($default = $defaults.get('workflow_scheme'))
+                        #foreach ($scheme in $action.getWorkflowSchemes())
+                            <option value="$scheme.getName()" 
+                                #if (${default})
+                                    #if ($default == $scheme.getName())
+                                        selected
+                                    #end
+                                #end
+                            >$scheme.getName()</option>
+                        #end
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="notify_scheme">Notification Scheme</label>
+                    <select class="s2" id="notify_scheme" name="notify_scheme" required="required">
+                        <option></option>
+                        #set($default = $defaults.get('notify_scheme'))
+                        #foreach ($scheme in $action.getNotificationSchemes())
+                            <option value="$scheme.getId()" 
+                                #if (${default})
+                                    #if ($default == $scheme.getId())
+                                        selected
+                                    #end
+                                #end
+                            >$scheme.getName()</option>
+                        #end
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="perm_scheme">Permission Scheme</label>
+                    <select class="s2" id="perm_scheme" name="perm_scheme" required="required">
+                        <option></option>
+                        #set($default = $defaults.get('perm_scheme'))
+                        #foreach ($scheme in $action.getPermissionSchemes())
+                            <option value="$scheme.getId()" 
+                                #if (${default})
+                                    #if ($default == $scheme.getId())
+                                        selected
+                                    #end
+                                #end
+                            >$scheme.getName()</option>
+                        #end
+                    </select>
+                </div>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" style="text-transform: capitalize;" type="submit" value="Update $pt.key.key Defaults" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">jQuery(function(){
+    AJS.$('#jira_${type.key.key}_defaults select').auiSelect2({ placeholder: "Select a JIRA Project component."});
+});
+</script>
+#end

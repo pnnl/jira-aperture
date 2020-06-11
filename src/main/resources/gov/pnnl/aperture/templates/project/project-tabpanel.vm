@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <title>PNNL Aperture for $project.key</title>
+        $webResourceManager.requireResourcesForContext("com.atlassian.auiplugin:aui-select2")
+        $webResourceManager.requireResourcesForContext("gov.pnnl.aperture.jira-core:pnnl-aperture-resources")
+        <meta name="projectKey" content="$textutils.htmlEncode($project.key)"/>
+    </head>
+    <body>
+       <div id="page">
+        <section id="content" role="main">
+            <header class="aui-page-header">
+                <div class="aui-page-header-inner">
+                    <div class="aui-page-header-image">
+                        <div class="apr-logo"></div>
+                    </div>
+                    <div class="aui-page-header-main">
+                        <h2>Aperture for $project.name [$project.key]</h2>
+                    </div>
+                    <div class="aui-page-header-actions">
+                        <p>Developed by <a href="http://developercentral.pnnl.gov/">Developer Central @ PNNL</a></p>
+                    </div>
+                </div>
+            </header>
+            #if (${apertureEnabled})
+                <nav class="aui-navgroup aui-navgroup-horizontal">
+                    <div class="aui-navgroup-inner">
+                        <div class="aui-navgroup-primary">                          
+                            <ul class="aui-nav">
+                                #foreach ($kvp in $projectLinks.entrySet())
+                                <li>
+                                    <a href="$kvp.value" target="_blank" />
+                                        #set($iconURL = "$${kvp.key.name()}_lnk.type.iconUrl")
+                                        <img src="#evaluate($iconURL)" target="_blank" type="image/png" width="16" height="16" align="texttop" />
+                                        ${i18n.getText($kvp.key.i18nNameKey)} 
+                                        <span class="aui-icon aui-icon-small aui-iconfont-sidebar-link">Link to external service.</span> 
+                                    </a>
+                                </li>
+                                #end
+                            </ul>
+                        </div>
+                        <div class="aui-navgroup-secondary">
+                            <ul class="aui-nav">
+                            </ul>
+                        </div>
+                    </div>
+                </nav>                
+            #else
+                <div class="aui-page-panel">
+                    <div class="aui-page-panel-inner">
+                        <section class="aui-page-panel-content">
+                            <div class="aui-message">
+                                <p class="title">
+                                    <strong>Aperture is not currently enabled on this project.</strong>
+                                </p>
+                                <p>
+                                    Aperture features and functions are not currently enabled for this project. This 
+                                    typically means that this project was not originally created using the Aperture 
+                                    tool; Please Contact your JIRA Administrator to get Aperture enabled 
+                                    for this project or if this message is believed to be in error.
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            #end
+        </section>
+       </div>
+    </body>
+</html>

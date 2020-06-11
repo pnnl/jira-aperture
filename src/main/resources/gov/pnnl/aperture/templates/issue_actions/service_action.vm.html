@@ -1,0 +1,29 @@
+<div class="issue-data-block" id="issue-aperture-$applink.name">
+    <div class="actionContainer">
+        <div class="action-details">
+            #if (${applink})
+             <img src="$applink.type.iconUrl" width="16" height="16" align="texttop" />
+            #end
+            ${i18n.getText($service.i18nNameKey)}
+            <span style="font-size: 12pt;font-weight: bold;text-align: center;margin-left: 10px;">Rerun Create ${i18n.getText($service.i18nNameKey)} Function</span>
+        </div>
+        <div class="action-body">
+            <form id="form-${service.name()}" class="aui" method="post" action="${req.contextPath}/secure/admin/ApertureServiceTools.jspa">
+                <input type="hidden" value="$issue.key" name="issue" />
+                <input type="hidden" value="$projectKey" name="projectKey" />
+                <input type="hidden" value="${service.name()}" name="service" />
+                <fieldset class="group">
+                    <div class="checkbox">
+                        <input type="checkbox" name="remove" value="true" id="remove_${service.name()}" class="checkbox">
+                        <label for="remove_${service.name()}">Remove existing service resource first</label>
+                    </div>
+                </fieldset>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" type="submit" value="Re-Create ${i18n.getText($service.i18nNameKey)}" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

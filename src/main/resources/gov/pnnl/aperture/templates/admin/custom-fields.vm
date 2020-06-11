@@ -1,0 +1,40 @@
+<form id="cf" class="aui" method="post" action="${req.contextPath}/secure/admin/ConfigureAperture!input.jspa">
+    <div class="aui-page-panel" style="border-top-width: 0; margin-top: 0px;">
+        <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                <h2>Map JIRA custom fields for Aperture</h2>
+                #foreach ($category in $action.getConfigurationFields())                    
+                    #set($cf = $action.getCustomField($category.name()))
+                    <div class="field-group">
+                        <label for="$category.name()">
+                            ${i18n.getText($category.i18nNameKey)}
+                            <span class="aui-icon icon-required">(required)</span>
+                        </label>
+                        <select class="s2" name="$category.name()" required="required">       
+                            <option></option>
+                            #foreach ($field in $action.getCustomFields())
+                                <option value="$field.getIdAsLong()"
+                                    #if (${cf})
+                                        #if ($field.getIdAsLong() == $cf.getIdAsLong())
+                                            selected
+                                        #end
+                                    #end
+                                >$field.getName()</option>
+                            #end
+                        </select>
+                        <div class="description">${i18n.getText($category.i18nDescriptionKey)}</div>
+                    </div>
+                #end 
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" type="submit" value="Update Custom Fields" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">jQuery(function(){
+    AJS.$('#cf select.s2').auiSelect2({ placeholder: "Select a JIRA custom field."});
+});
+</script>

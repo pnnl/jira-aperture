@@ -1,0 +1,96 @@
+<form id="general" class="aui" method="post" action="${req.contextPath}/secure/admin/ConfigureAperture!general.jspa">
+    <div class="aui-page-panel" style="border-top-width: 0; margin-top: 0px;">
+        <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                <h2>General Configuration Options</h2>
+                <div class="field-group">
+                    <label for="projectKey">Aperture JIRA Project</label>
+                    <input class="text medium-field" type="text" name="projectKey" disabled="disabled"
+                           placeholder="APERTURE"
+                        #if ($action.settings.apertureProjectKey)
+                           value="$action.settings.apertureProjectKey"
+                        #end
+                    />
+                    <div class="description">
+                        Install Aperture workflows into a JIRA project to modify this value.
+                        #if ($action.settings.apertureProjectKey)
+                            Browse to this project
+                            <a href="/jira/browse/$action.settings.apertureProjectKey" atltoken="false" data-track-click="projects.browse.project">
+                                here
+                            </a>
+                        #end
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="deleteDuration">Aperture User</label>
+                    <select id="aperture_user" class="single-user-picker" name="apertureUser"  data-user-type="assignee"></select>
+                    <div class="description">
+                        Aperture user <em>who</em> will perform actions; must be an administrator on all linked systems
+                        as well.
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="emailAddress">Aperture Email</label>
+                    <input class="text medium-field" type="email" name="emailAddress"
+                           placeholder="Aperture Email Address"
+                        #if ($action.settings.apertureEmailAddress)
+                           value="$action.settings.apertureEmailAddress"
+                        #end
+                    />
+                    <div class="description">
+                        This email address will be notified of various activities through Aperture.
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label for="deleteDuration">Delete Duration</label>
+                    <input class="text medium-field" type="text" name="deleteDuration"
+                           placeholder="Aperture Project Removal Delay"
+                        #if ($action.settings.deleteDuration)
+                           value="$action.settings.deleteDuration"
+                        #end
+                    />
+                    <div class="description">
+                        Use a standard JIRA duration string for how long to delay removing project resources via
+                        Aperture.
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" type="submit" value="Update Configuration"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+<script type="application/javascript">
+    var _assigneeComponent;
+    function createSingleUserPicker(ctx) {
+        _assigneeComponent = new AJS.SingleSelect({
+            element: $("#aperture_user"),
+            submitInputVal: true,
+            showDropdownButton: false,
+            value: '$action.settings.apertureUser.name',
+            errorMessage: AJS.format("There is no such user \'\'{0}\'\'.", "'{0}'"),
+            ajaxOptions: {
+                url: AJS.contextPath() + "/rest/api/1.0/users/picker",
+                query: true, // keep going back to the sever for each keystroke
+                data: {showAvatar: true},
+                formatResponse: JIRA.UserPickerUtil.formatResponse
+            }
+        });
+        #if ($action.settings.apertureUser)
+            _assigneeComponent.setSelection(new AJS.ItemDescriptor({
+                value: "$action.settings.apertureUser.name",
+                label: "$action.settings.apertureUser.displayName",
+                icon: "$action.apertureUserAvatarURL"
+            }));
+        #end
+    }
+
+    JIRA.bind(JIRA.Events.NEW_CONTENT_ADDED, function (e, context, reason) {
+        if (reason !== JIRA.CONTENT_ADDED_REASON.panelRefreshed) {
+            createSingleUserPicker(context);
+        }
+    });
+</script>

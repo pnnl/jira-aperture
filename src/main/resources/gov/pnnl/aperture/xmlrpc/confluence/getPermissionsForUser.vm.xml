@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<methodCall>
+    <methodName>confluence2.getPermissionsForUser</methodName>
+    <params>
+        <param>
+            <value>
+                <string>$sessionId</string>
+            </value>
+        </param>
+        <param>
+            <value>
+                <string>$spaceKey</string>
+            </value>
+        </param>
+        <param>
+            <value>
+                <string>$entity.name</string>
+            </value>
+        </param>
+    </params>
+</methodCall>

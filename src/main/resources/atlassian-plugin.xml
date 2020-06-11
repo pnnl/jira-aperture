@@ -1,0 +1,142 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>      
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">/gov/pnnl/aperture/images/pluginIcon.png</param>
+        <param name="plugin-logo">/gov/pnnl/aperture/images/pluginLogo.png</param>
+        <param name="configure.url">/secure/admin/ConfigureAperture.jspa</param>
+        <param name="build">0</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="pnnl-aperture"/>    
+    <web-resource key="pnnl-aperture-resources" name="Aperture Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>        
+        <resource type="download" name="pnnl-aperture.css" location="/gov/pnnl/aperture/style/default.css"/>
+        <resource type="download" name="images/" location="/gov/pnnl/aperture/images"/>
+        <context>pnnl-aperture</context>
+    </web-resource>
+    
+    <project-tabpanel key="pnnl-aperture-project-panel" name="PNNL Aperture Project Panel" class="gov.pnnl.aperture.webwork.action.ApertureProjectPanel">
+        <description key="pnnl-dc-aperture-ww1.description" />
+        <label key="pnnl-dc-aperture-web-item.name" />
+        <order>100</order>
+        <resource type="velocity" name="view" location="gov/pnnl/aperture/templates/project/project-tabpanel.vm" />
+        <param name="noTitle">true</param>
+    </project-tabpanel>
+    
+    <issue-tabpanel key="pnnl-aperture-admin-issue-tabpanel" name="Aperture Admin Issue Tab Panel" class="gov.pnnl.aperture.webwork.action.IssueAdminTabPanel">
+        <description>Aperture Tools to assist with issues logged in JIRA.</description>
+        <label>Aperture Tools</label>
+        <resource type="velocity" name="view" location="templates/plugins/subversion/issuetabpanels/subversion-commits-view.vm"/>
+    </issue-tabpanel>
+
+    <webwork1 key="pnnl-dc-aperture-ww1" name="Aperture Configuration Webwork" i18n-name-key="pnnl-dc-aperture-ww1.name" class="java.lang.Object">
+        <description key="pnnl-dc-aperture-ww1.description">
+            Webwork plug-in that allows for user functions at the project level into Aperture.
+        </description>
+        <actions>
+            <action name="gov.pnnl.aperture.webwork.action.ApertureProjectConfigure" alias="ProjectConfigureAperture">
+                <view name="input">/gov/pnnl/aperture/templates/project/index.vm</view>
+                <view name="success">/gov/pnnl/aperture/templates/project/index.vm</view>
+                <view name="error">/gov/pnnl/aperture/templates/project/index.vm</view>
+            </action>
+            <action name="gov.pnnl.aperture.webwork.action.ApertureProjectServiceTools" alias="ApertureServiceTools">
+                <view name="input">/gov/pnnl/aperture/templates/project/index.vm</view>
+                <view name="success">/gov/pnnl/aperture/templates/project/index.vm</view>
+                <view name="error">/gov/pnnl/aperture/templates/project/index.vm</view>
+            </action>
+
+        </actions>
+    </webwork1>
+    
+    <web-section key="pnnl-dc-aperture-prj-cfg-section" name="PNNL Developer Central Aperture Project Section" location="atl.jira.proj.config" weight="15">
+        <label />
+    </web-section>
+    
+    <web-item key="pnnl-dc-aperture-prj-cfg" name="PNNL" section="atl.jira.proj.config/pnnl-dc-aperture-prj-cfg-section" weight="10">
+        <label>PNNL Aperture</label>
+        <link linkId="pnnl_dc_aperture_prj_config">/secure/admin/ProjectConfigureAperture.jspa?projectKey=$projectKeyEncoded</link>
+    </web-item>
+
+    <webwork1 key="pnnl-dc-aperture-ww2" name="Aperture Configuration Webwork" i18n-name-key="pnnl-dc-aperture-ww1.name" class="java.lang.Object">
+        <description key="pnnl-dc-aperture-ww1.description">
+            Webwork plug-in that allows configuration UI within JIRA for Aperture.
+        </description>
+        <actions>
+            <action name="gov.pnnl.aperture.webwork.action.ApertureConfigure" alias="ConfigureAperture">
+                <view name="input">/gov/pnnl/aperture/templates/admin/index.vm</view>
+                <view name="success">/gov/pnnl/aperture/templates/admin/index.vm</view>
+                <view name="error">/gov/pnnl/aperture/templates/admin/index.vm</view>
+            </action>
+            <action name="gov.pnnl.aperture.webwork.action.ApertureProjectDefaults" alias="ConfigureApertureDefaults">
+                <view name="input">/gov/pnnl/aperture/templates/admin/defaults/index.vm</view>
+                <view name="success">/gov/pnnl/aperture/templates/admin/defaults/index.vm</view>
+                <view name="error">/gov/pnnl/aperture/templates/admin/defaults/index.vm</view>
+            </action>
+            <action name="gov.pnnl.aperture.webwork.action.ProjectRecycleBin" alias="ApertureProjectRecycleBin">
+                <view name="input">/gov/pnnl/aperture/templates/admin/recycle-bin/index.vm</view>
+                <view name="success">/gov/pnnl/aperture/templates/admin/recycle-bin/index.vm</view>
+                <view name="error">/gov/pnnl/aperture/templates/admin/recycle-bin/index.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+    
+    <web-section key="pnnl_dc_aperture_section" name="PNNL Developer Central Aperture Web Section" location="admin_plugins_menu" weight="10">
+        <label key="pnnl-dc-aperture-web-item.name" />
+    </web-section>
+
+    <web-item key="pnnl_dc_aperture_config" name="Link to configure global options for Aperture" section="admin_plugins_menu/pnnl_dc_aperture_section" weight="10">
+        <label>Aperture Configuration</label>
+        <link linkId="pnnl_dc_aperture_config">/secure/admin/ConfigureAperture.jspa</link>
+    </web-item>
+    
+    <web-item key="pnnl_dc_aperture_defaults" name="Link to configure global options for Aperture" section="admin_plugins_menu/pnnl_dc_aperture_section" weight="10">
+        <label>Aperture Project Defaults</label>
+        <link linkId="pnnl_dc_aperture_defaults">/secure/admin/ConfigureApertureDefaults.jspa</link>
+    </web-item>
+
+    <web-item key="pnnl_dc_aperture_project_recycle_bin" name="Link to view any pending project deletions" section="admin_plugins_menu/pnnl_dc_aperture_section" weight="10">
+        <label>Aperture Project Recycle Bin</label>
+        <link linkId="pnnl_dc_aperture_defaults">/secure/admin/ApertureProjectRecycleBin.jspa</link>
+    </web-item>
+
+    <web-item key="documentation_link" name="Documentation Web Site" section="admin_plugins_menu/pnnl_dc_aperture_section" weight="10">
+        <label>Aperture Documentation</label>
+        <link linkId="documentation_link">https://confluence.pnnl.gov/confluence/x/fI7FAw</link>
+    </web-item>      
+    
+    <workflow-validator key="pnnl-project-validator-condition" name="Project Key Validatior Condition" i18n-name-key="pnnl-project-validator-condition.name" class="gov.pnnl.aperture.workflow.validator.ProjectKeyValidatorFactory">
+        <description key="pnnl-project-validator-condition.description"></description>
+        <validator-class>gov.pnnl.aperture.workflow.validator.ProjectKeyValidator</validator-class>
+        <resource type="velocity" name="view" location="gov/pnnl/aperture/templates/validator/pnnl-project-key.vm"/>
+        <resource type="velocity" name="input-parameters" location="gov/pnnl/aperture/templates/validator/pnnl-project-key-input.vm"/>
+        <resource type="velocity" name="edit-parameters" location="gov/pnnl/aperture/templates/validator/pnnl-project-key-input.vm"/>
+    </workflow-validator>
+    
+    <workflow-function key="pnnl-project-creator-function" name="Project Creator Function" i18n-name-key="pnnl-project-creator-function.name" class="gov.pnnl.aperture.workflow.function.ProjectCreatorFunctionFactory">
+        <description key="pnnl-project-creator-function.description"></description>
+        <function-class>gov.pnnl.aperture.workflow.function.ProjectCreatorPostFunction</function-class>
+        <resource type="velocity" name="view" location="gov/pnnl/aperture/templates/function/pnnl-project-creator.vm"/>
+        <resource type="velocity" name="input-parameters" location="gov/pnnl/aperture/templates/function/pnnl-project-creator-input.vm"/>
+        <resource type="velocity" name="edit-parameters" location="gov/pnnl/aperture/templates/function/pnnl-project-creator-input.vm"/>
+    </workflow-function>
+    
+    <workflow-function key="pnnl-new-project-email-function" name="New Aperture Project Email Notification" i18n-name-key="pnnl-new-project-email-function.name" class="gov.pnnl.aperture.workflow.function.ProjectCreationNotifcationFactory">
+        <description key="pnnl-new-project-email-function.description"></description>
+        <function-class>gov.pnnl.aperture.workflow.function.ProjectCreationNotificationFunction</function-class>
+        <resource type="velocity" name="view" location="gov/pnnl/aperture/templates/function/email-notifier.vm"/>
+        <resource type="velocity" name="input-parameters" location="gov/pnnl/aperture/templates/function/pnnl-project-creator-input.vm"/>
+        <resource type="velocity" name="edit-parameters" location="gov/pnnl/aperture/templates/function/pnnl-project-creator-input.vm"/>
+    </workflow-function>
+    
+    <workflow-function key="pnnl-project-enabler-function" name="Aperture Project Enabler" i18n-name-key="pnnl-project-enabler-function.name" class="gov.pnnl.aperture.workflow.function.ApertureProjectEnablerFactory">
+        <description key="pnnl-project-enabler-function.description"></description>
+        <function-class>gov.pnnl.aperture.workflow.function.ApertureProjectEnablerFunction</function-class>
+        <resource type="velocity" name="view" location="gov/pnnl/aperture/templates/function/aperture-enabler.vm"/>
+        <resource type="velocity" name="input-parameters" location="gov/pnnl/aperture/templates/function/pnnl-project-creator-input.vm"/>
+        <resource type="velocity" name="edit-parameters" location="gov/pnnl/aperture/templates/function/pnnl-project-creator-input.vm"/>
+    </workflow-function>
+
+</atlassian-plugin>

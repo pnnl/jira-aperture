@@ -1,0 +1,37 @@
+#disable_html_escaping()
+#parse("templates/email/html/includes/emailconstants.vm")
+#rowWrapperNormalBegin('' 'wrapper-special-margin')
+<table class="keyvalue-table">
+    <tr>
+        <th class="mobile-expand">
+            Project Key:
+        </th>
+        <td class="mobile-expand">
+            $projectKey
+        </td>
+    </tr>
+    <tr>
+        <th class="mobile-expand">
+            Project Removed Initiated By:
+        </th>
+        <td class="mobile-expand">
+            #authorlinkkey($requester.name $linkstyle)
+        </td>
+    </tr>
+    <tr>
+        <td class="page-title-pattern-first-line" colspan="2">
+            <b>Error Messages captured</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ol>
+                #foreach ($errorMessage in $errors.errorMessages)
+                <li>$errorMessage</li>
+                #end 
+            </ol>
+        </td>
+    </tr>
+</table>
+#rowWrapperNormalEnd()
+#parse("templates/email/html/includes/footer.vm")

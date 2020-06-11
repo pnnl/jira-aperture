@@ -1,0 +1,34 @@
+#disable_html_escaping()
+#parse("templates/email/html/includes/emailconstants.vm")
+#defaultMailHeader("pnnl.aperture.project-services.failed", $issue.reporter)
+#set ($issueTitleBody="#parse('templates/email/html/includes/patterns/issue-title.vm')")
+#rowWrapperNormal($issueTitleBody)
+#rowWrapperNormalBegin('' 'wrapper-special-margin')
+<div style="padding-top:10px;">
+    <table class='text-paragraph-pattern' cellspacing='0' cellpadding='0' border='0' width='100%'>
+        <tr>
+            <td class="text-paragraph-pattern-container mobile-resize-text">
+                An error occurred within Aperture while attempting to provision software services for project with key
+                <b>$projectKey</b> requested by #authorlinkkey($requester.name $linkstyle) the errors are captured
+                below.
+            </td>
+        </tr>
+    </table>
+</div>
+<table class="keyvalue-table">
+    <tr>
+        <td class="page-title-pattern-first-line" colspan="2">
+            <b>Error Messages captured</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <ol>
+                #foreach ($errorMessage in $errors.errorMessages)
+                <li>$errorMessage</li>
+                #end 
+            </ol>
+        </td>
+    </tr>
+</table>
+#parse("templates/email/html/includes/footer.vm")

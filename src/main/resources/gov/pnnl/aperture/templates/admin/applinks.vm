@@ -1,0 +1,41 @@
+<form id="applinks" class="aui" method="post" action="${req.contextPath}/secure/admin/ConfigureAperture!applinks.jspa">
+    <div class="aui-page-panel" style="border-top-width: 0; margin-top: 0px;">
+        <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                <h2>Map JIRA Services to application links</h2>
+                <p>
+                <a href="${req.contextPath}/plugins/servlet/applinks/listApplicationLinks" style="font-size: larger">Application links</a> are how
+                Aperture connects and manages remote services from within JIRA.
+                </p>
+                #foreach ($category in $action.getRemoteServices())
+                    <div class="field-group">
+                        <label for="$category.name()">${i18n.getText($category.i18nNameKey)}</label>
+                        <select class="s2" name="$category.name()">       
+                            <option></option>
+                            <option value="">Disconnect this Application Link</option>
+                            #foreach ($link in $action.getAppLinks())
+                                <option value="$link.getId().get()" data-icon="$link.getType().getIconUrl()" data-primary="$link.isPrimary()"
+                                    #if ($action.getApplicationLink($category.name()))
+                                        #if ($link.getId().get() == $action.getApplicationLink($category.name()).getId().get())
+                                            selected
+                                        #end
+                                    #end
+                                >$link.getName()</option>
+                            #end
+                        </select>
+                        <div class="description">${i18n.getText($category.i18nDescriptionKey)}</div>
+                    </div>                  
+                #end               
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" type="submit" value="Update Application Links" />
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">jQuery(function(){
+    AJS.$('#applinks select').auiSelect2({ placeholder: "Select a JIRA Application Link"});
+});
+</script>

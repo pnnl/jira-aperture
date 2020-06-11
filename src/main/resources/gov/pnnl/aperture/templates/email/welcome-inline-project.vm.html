@@ -1,0 +1,92 @@
+#disable_html_escaping()
+#parse("templates/email/html/includes/emailconstants.vm")
+#defaultMailHeader("pnnl.aperture.project-services.added-user", $actionUser)
+#set ($issueTitleBody="#parse('templates/email/html/includes/patterns/issue-title.vm')")
+#rowWrapperNormal($issueTitleBody)
+#rowWrapperNormalBegin('' 'wrapper-special-margin')
+<div style="padding-top:10px;">
+    <table class='text-paragraph-pattern' cellspacing='0' cellpadding='0' border='0' width='100%'>
+        <tr>
+            <td class="text-paragraph-pattern-container mobile-resize-text">
+                $attachmentsManager.inlineImages($projectDesc)
+            </td>
+        </tr>
+    </table>
+</div>
+<table class="keyvalue-table">
+    <tr>
+        <th class="mobile-expand">Project Lead:</th>
+        <td class="mobile-expand">
+            #if ($actionUser)
+            #authorlinkkey($projectLead $linkstyle)
+            #else
+            #text("common.concepts.no.reporter")
+            #end
+        </td>
+    </tr>
+    <tr>
+        <td class="page-title-pattern-first-line" colspan="2">
+            <b>Software Development Resources</b>
+        </td>
+    </tr>
+    #if ($projectLinks && $projectLinks.size() >0)
+    #foreach ($kvp in $projectLinks.entrySet())
+    <tr>
+        <th>
+            ${i18n.getText($kvp.key.i18nNameKey)}
+        </th>
+        <td>
+            <a href="$kvp.value">$kvp.value</a>
+        </td>         
+    </tr>
+    #end
+    #end
+
+    #if ($projectMembers && $projectMembers.size() >0)
+    <tr>
+        <td class="page-title-pattern-first-line" colspan="2">
+            <b>The $textutils.htmlEncode($issue.getSummary()) team</b>
+        </td>
+    </tr>
+    <tr>
+        <td class="mobile-expand">
+            <ul>
+                #foreach ($user in $projectMembers)
+                <li><a href='mailto:$user.emailAddress'>$user.displayName</a> &mdash; (#authorlinkkey($user.getName() $linkstyle))</li>
+                #end
+            </ul>
+        </td>
+    </tr>
+    #end
+    <tr>
+        <td class="page-title-pattern-first-line" colspan="2">
+            <b>Developer Central Links</b>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <ul>
+                <li>
+                    For a tutorial on how to use JIRA on your project, please see 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/JIRA+Tutorial">https://confluence.pnnl.gov/confluence/display/DC/JIRA+Tutorial</a>
+                </li>
+                <li>
+                    For answers to frequently asked JIRA questions, please read 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/Jira+FAQ">https://confluence.pnnl.gov/confluence/display/DC/Jira+FAQ</a>
+                </li>
+                <li>
+                    For answers to frequently asked Confluence questions, please read 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/Confluence+FAQ">https://confluence.pnnl.gov/confluence/display/DC/Confluence+FAQ</a>
+                </li>
+                <li>
+                    For answers to frequently asked git and Bitbucket Server questions, please read 
+                    <a href="https://confluence.pnnl.gov/confluence/display/DC/Git+FAQ">https://confluence.pnnl.gov/confluence/display/DC/Git+FAQ</a>
+                </li>
+            </ul>
+            For any other questions or concerns, please email 
+            <a href="mailto:dev-central@pnnl.gov">Developer Central @ PNNL</a>.
+        </td>
+    </tr>
+    #rowWrapperNormalEnd()
+</table>
+#parse("templates/email/html/includes/footer.vm")

@@ -1,0 +1,46 @@
+$webResourceManager.requireResourcesForContext("com.atlassian.auiplugin:aui-select2")
+$webResourceManager.requireResourcesForContext("gov.pnnl.aperture.jira-core:pnnl-aperture-resources")
+#parse("/gov/pnnl/aperture/templates/admin/defaults/jira.vm.html")
+<header class="aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-image">
+            <div class="apr-logo"></div>
+        </div>
+        <div class="aui-page-header-main">
+            <h2>Aperture configuration</h2>
+        </div>
+        <div class="aui-page-header-actions">
+            <p>Developed by <a href="http://developercentral.pnnl.gov/">Developer Central @ PNNL</a></p>
+        </div>
+    </div>
+</header>
+<p>
+ In order for this add-on to function correctly it must first be configured to use the existing JIRA custom fields, 
+ workflow actions, and application links. 
+</p>
+<div id="aperture-defaults" class="aui-tabs horizontal-tabs" role="application" data-aui-persist="aperture-defaults" data-aui-responsive="">
+    <ul class="tabs-menu" role="tablist">
+        #foreach($pt in $action.projectTypes)
+            <li class="menu-item" role="presentation">
+                <a href="#tabs-$pt.key.key" role="tab" aria-selected="false" style="text-transform: capitalize" title="${i18n.getText($pt.descriptionI18nKey)}">
+                    <span class="aui-icon aui-icon-small aui-iconfont-jira"></span>
+                    <strong>JIRA ${pt.key.key}</strong>
+                </a>
+            </li>
+        #end
+        <li class="menu-item" role="presentation">
+            <a href="#tabs-confluence" role="tab" aria-selected="false">
+                <span class="aui-icon aui-icon-small aui-iconfont-confluence"></span>&nbsp;<strong>Confluence</strong>
+            </a>
+        </li>
+    </ul>
+    #foreach($pt in $action.projectTypes)
+        <div class="tabs-pane active-pane" id="tabs-$pt.key.key" role="tabpanel" aria-hidden="false">
+            #jiraProjectDefaults($pt)
+        </div>
+    #end
+    <div class="tabs-pane" id="tabs-confluence" role="tabpanel" aria-hidden="false">
+        #parse("/gov/pnnl/aperture/templates/admin/defaults/confluence.vm.html")
+    </div>
+    <h5 style="text-align:right;">Running Aperture v.${action.getPluginInfo().getVersion()}</h5>
+</div>

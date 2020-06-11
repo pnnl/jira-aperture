@@ -1,0 +1,56 @@
+<div class="project-config-webpanel-column-content">
+    <div class="module project-config-webpanel">
+        <div class="mod-header">
+            <h2>Project Administrator Access Control</h2>
+        </div>
+        <div class="mod-content">
+            <div class="project-config-webpanel-content project-config-icon48-people">
+                <form id="acl" class="aui" method="post" action="${req.contextPath}/secure/admin/ProjectConfigureAperture!xfr.jspa">
+                    <input type="hidden" value="$action.projectKey" name="projectKey" />
+                    <input type="hidden" value="ADMIN" name="role" />
+                    <div class="field-group">
+                        <label for="mode">Mode <span class="aui-icon icon-required">(required)</span></label>
+                        <select class="select" name="mode" required="required" placeholder="Please select operation mode">       
+                            <option></option>
+                            <option value="add">Add</option>
+                            <option value="remove">Remove</option>
+                        </select>
+                        <div class="description">
+                            Select the mode of operation to modify access control for using the users and or groups 
+                            entered below.
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="projectUsers">Project Members</label>
+                        <input class="text medium-field" id="pnnlUsers" name="projectUsers" />
+                        <a href="javascript:openUserPickerWindow('pnnlUsers',true);" title="Click here to search and select one or more users">
+                            <span class="aui-icon icon-userpicker"></span>
+                        </a>
+                        <div class="description">
+                            Enter usernames separated by <strong>,</strong> or click the icon on the right to browse.
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="projectUsers" class="aui-item">Project Groups</label>
+                        <input class="text medium-field" id="pnnlGroups" name="projectGroups" />
+                        <a href="javascript:openGroupPickerWindow('pnnlGroups', true);" title="Click here to search and select one or more groups">
+                            <span class="aui-icon icon-userpicker"></span>
+                        </a>
+                        <div class="description">
+                            Enter group names separated by <strong>,</strong> or click the icon on the right to browse.
+                        </div>
+                    </div>
+                    <div class="buttons-container">
+                        <div class="buttons">
+                            <input class="button submit" type="submit" value="Update Permissions" />
+                        </div>
+                    </div>
+                </form>
+                <div class="project-config-webpanel-help">
+                    <p>This will operation modify access control across <strong>all</strong> services provided by 
+                    Developer Central.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<form id="general" class="aui" method="post" action="${req.contextPath}/secure/admin/ConfigureAperture!ipt.jspa">
+    <div class="aui-page-panel" style="border-top-width: 0; margin-top: 0px;">
+        <div class="aui-page-panel-inner">
+            <section class="aui-page-panel-content">
+                <h2>Idle Project Detection Tool</h2>
+                <div class="field-group">
+                    <label for="idleDuration">Project Idle Duration</label>
+                    <input class="text medium-field" type="text" name="idleDuration" disabled="disabled"
+                           placeholder="Aperture Project Removal Delay"
+                        #if ($action.settings.projectIdleDuration)
+                           value="$action.settings.projectIdleDuration"
+                        #end
+                    />
+                    <div class="description">
+                        Use a standard JIRA duration string for how long to a project can have no activity before being
+                        considered <em>idle</em>.
+                    </div>
+                </div>
+                <div class="buttons-container">
+                    <div class="buttons">
+                        <input class="button submit" disabled="disabled" type="submit" value="Update Configuration"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</form>
