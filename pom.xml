@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>gov.pnnl.aperture</groupId>
     <artifactId>aperture</artifactId>
-    <version>1.1</version>
+    <version>1.1-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -28,6 +28,10 @@
     <name>Developer Central Aperture</name>
     <description>Automation hooks for JIRA into other systems that support Developer Central @ PNNL</description>
     <packaging>atlassian-plugin</packaging>
+    <scm>
+        <connection>scm:git:ssh://github.com/pnnl/jira-aperture</connection>
+        <developerConnection>scm:git:ssh://github.com/pnnl/jira-aperture</developerConnection>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>com.atlassian.jira</groupId>
