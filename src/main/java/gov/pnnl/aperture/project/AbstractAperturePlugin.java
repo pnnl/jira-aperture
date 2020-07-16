@@ -17,6 +17,7 @@ import javax.inject.Inject;
  */
 abstract class AbstractAperturePlugin implements LifecycleAware, StateAware {
 
+    public static final String APERTURE_PLUGIN_KEY = "gov.pnnl.aperture.aperture";
     private final PluginSettingsFactory pluginSettingsFactory;
 
     @Inject
@@ -42,7 +43,7 @@ abstract class AbstractAperturePlugin implements LifecycleAware, StateAware {
     public PluginInformation getPluginInfo() {
 
         final PluginAccessor pluginAccessor = ComponentAccessor.getPluginAccessor();
-        final Plugin plugin = pluginAccessor.getPlugin("gov.pnnl.aperture.aperture");
+        final Plugin plugin = pluginAccessor.getPlugin(APERTURE_PLUGIN_KEY);
         return plugin.getPluginInformation();
     }
 

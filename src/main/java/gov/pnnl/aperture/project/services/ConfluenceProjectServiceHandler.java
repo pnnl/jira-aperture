@@ -168,7 +168,7 @@ public class ConfluenceProjectServiceHandler extends AbstractRestfulProjectServi
 
         request.setRequestBody(velocityManager.getEncodedBody(basePath, "addLabelByNameToSpace.vm.xml", baseUrl, webworkEncoding, context));
         final JsonNode response = request.execute(new XmlRpcJsonResponder());
-        LOG.debug(String.format("assignProjectCatory:response => %s", response));
+        LOG.debug(String.format("assignProjectCategory:response => %s", response));
     }
 
     private String createBasicSpace(final String spaceKey, final MutableIssue issue) throws IOException {

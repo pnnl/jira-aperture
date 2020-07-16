@@ -104,7 +104,7 @@
 
     <web-item key="documentation_link" name="Documentation Web Site" section="admin_plugins_menu/pnnl_dc_aperture_section" weight="10">
         <label>Aperture Documentation</label>
-        <link linkId="documentation_link">https://confluence.pnnl.gov/confluence/x/fI7FAw</link>
+        <link linkId="documentation_link">https://github.com/pnnl/jira-aperture</link>
     </web-item>      
     
     <workflow-validator key="pnnl-project-validator-condition" name="Project Key Validatior Condition" i18n-name-key="pnnl-project-validator-condition.name" class="gov.pnnl.aperture.workflow.validator.ProjectKeyValidatorFactory">

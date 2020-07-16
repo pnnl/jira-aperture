@@ -40,11 +40,6 @@ $webResourceManager.requireResourcesForContext("gov.pnnl.aperture.jira-core:pnnl
                 <strong>Workflow Mapping</strong>
             </a>
         </li>
-        <li class="menu-item" role="presentation">
-            <a href="#tabs-ipt" role="tab" aria-selected="false">
-                <strong>Idle Project Detection</strong>
-            </a>
-        </li>
     </ul>
     <div class="tabs-pane active-pane" id="tabs-g" role="tabpanel" aria-hidden="false">
         #parse("/gov/pnnl/aperture/templates/admin/general.vm")
@@ -57,9 +52,6 @@ $webResourceManager.requireResourcesForContext("gov.pnnl.aperture.jira-core:pnnl
     </div>
     <div class="tabs-pane" id="tabs-wf" role="tabpanel" aria-hidden="true" >
        #parse("/gov/pnnl/aperture/templates/admin/workflow-mapping.vm")
-    </div>
-    <div class="tabs-pane" id="tabs-ipt" role="tabpanel" aria-hidden="true" >
-        #parse("/gov/pnnl/aperture/templates/admin/idle-project-tool.vm")
     </div>
     <h5 style="text-align:right;">Running Aperture v.${action.getPluginInfo().getVersion()}</h5>
     <script type="text/javascript">jQuery(function(){AJS.tabs.setup();});</script>
