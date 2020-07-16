@@ -30,10 +30,11 @@
     <description>Automation hooks for JIRA into other systems that support Developer Central @ PNNL</description>
     <packaging>atlassian-plugin</packaging>
     <scm>
-        <connection>scm:git:https://github.com/pnnl/jira-aperture</connection>
-        <developerConnection>scm:git:https://github.com/pnnl/jira-aperture</developerConnection>
-      <tag>aperture-1.2</tag>
-  </scm>
+        <connection>scm:git:git@github.com:pnnl/jira-aperture.git</connection>
+        <url>scm:git:git@github.com:pnnl/jira-aperture.git</url>
+        <developerConnection>scm:git:git@github.com:pnnl/jira-aperture.git</developerConnection>
+        <tag>aperture-1.2</tag>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>com.atlassian.jira</groupId>
